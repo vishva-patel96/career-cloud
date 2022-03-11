@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>CareerCloud.Pocos</id>
+    <version>1.0.0</version>
+    <authors>CareerCloud.Pocos</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net6.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.Pocos\bin\Debug\net6.0\CareerCloud.Pocos.dll" target="lib\net6.0\CareerCloud.Pocos.dll" />
+  </files>
+</package>
