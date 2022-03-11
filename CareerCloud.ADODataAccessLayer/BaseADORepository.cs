@@ -8,7 +8,7 @@ namespace CareerCloud.ADODataAccessLayer
 {
     public abstract class BaseADORepository<T> where T : IPoco
     {
-        protected readonly string _connStr ;
+        protected readonly string _connStr;
 
         public abstract IList<T> GetAll(params Expression<Func<T, object>>[] navigationProperties);
 
@@ -16,7 +16,7 @@ namespace CareerCloud.ADODataAccessLayer
         {
             var config = new ConfigurationBuilder();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
-            config.AddJsonFile(path, false);
+            object p = config.AddJsonFile(path, false);
             var root = config.Build();
             _connStr = root.GetSection("ConnectionStrings").GetSection("DataConnection").Value;
         }
