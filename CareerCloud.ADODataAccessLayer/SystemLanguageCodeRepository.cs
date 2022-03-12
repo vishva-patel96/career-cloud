@@ -12,10 +12,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class SystemCountryCodeRepository
+    public class SystemLanguageCodeRepository
     {
         string _connStr;
-        public SystemCountryCodeRepository()
+        public SystemLanguageCodeRepository()
         {
             var config = new ConfigurationBuilder();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
@@ -24,7 +24,7 @@ namespace CareerCloud.ADODataAccessLayer
             _connStr = root.GetSection("ConnectionStrings").GetSection("DataConnection").Value;
         }
 
-        public void Add(params SystemCountryCodePoco[] items)
+        public void Add(params SystemLanguageCodePoco[] items)
         {
             try
             {
@@ -33,18 +33,20 @@ namespace CareerCloud.ADODataAccessLayer
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = conn;
 
-                    foreach (SystemCountryCodePoco item in items)
+                    foreach (SystemLanguageCodePoco item in items)
                     {
-                        cmd.CommandText = @"INSERT INTO [dbo].[System_Country_Codes]
-           ([Code]
-           ,[Name])
+                        cmd.CommandText = @"INSERT INTO [dbo].[System_Language_Codes]
+                                                       ([LanguageID]
+                                                       ,[Name]
+                                                       ,[Native_Name])
                                                  VALUES
-                                                       (@Code
-                                                       ,@Name)";
+                                                       (@LanguageID
+                                                       ,@Name
+                                                       ,@Native_Name)";
 
-                        cmd.Parameters.AddWithValue("@Code", item.Code);
+                        cmd.Parameters.AddWithValue("@LanguageID", item.LanguageID);
                         cmd.Parameters.AddWithValue("@Name", item.Name);
-                        
+                        cmd.Parameters.AddWithValue("@Native_Name", item.NativeName);
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
@@ -62,18 +64,19 @@ namespace CareerCloud.ADODataAccessLayer
             }
         }
 
-        public IList<SystemCountryCodePoco> GetAll(params Expression<Func<SystemCountryCodePoco, object>>[] navigationProperties)
+        public IList<SystemLanguageCodePoco> GetAll(params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
         {
-            SystemCountryCodePoco[] addPocos = new SystemCountryCodePoco[1000];
+            SystemLanguageCodePoco[] addPocos = new SystemLanguageCodePoco[1000];
             try
             {
                 using (SqlConnection conn = new SqlConnection(_connStr))
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = conn;
-                    cmd.CommandText = @"SELECT [Code]
-      ,[Name]
-                                          FROM [dbo].[System_Country_Codes]";
+                    cmd.CommandText = @"SELECT [LanguageID]
+                                              ,[Name]
+                                              ,[Native_Name]
+                                          FROM [dbo].[System_Language_Codes]";
 
                     conn.Open();
 
@@ -83,10 +86,10 @@ namespace CareerCloud.ADODataAccessLayer
                     {
                         while (dr.Read())
                         {
-                            SystemCountryCodePoco poco = new SystemCountryCodePoco();
-                            poco.Code = dr.GetString(0);
+                            SystemLanguageCodePoco poco = new SystemLanguageCodePoco();
+                            poco.LanguageID = dr.GetString(0);
                             poco.Name = dr.GetString(1);
-                            
+                            poco.NativeName = dr.GetString(2);
 
                             addPocos[x] = poco;
                             x++;
@@ -101,7 +104,7 @@ namespace CareerCloud.ADODataAccessLayer
             return addPocos.Where(a => a != null).ToList();
         }
 
-        public void Update(params SystemCountryCodePoco[] items)
+        public void Update(params SystemLanguageCodePoco[] items)
         {
             try
             {
@@ -109,15 +112,16 @@ namespace CareerCloud.ADODataAccessLayer
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = conn;
-                    foreach (SystemCountryCodePoco item in items)
+                    foreach (SystemLanguageCodePoco item in items)
                     {
-                        cmd.CommandText = @"UPDATE [dbo].[System_Country_Codes]
-                                               SET [Code] = @Code
-                                                  WHERE [Name] = @Name";
-                                             
+                        cmd.CommandText = @"UPDATE [dbo].[System_Language_Codes]
+                                               SET [Name] = @Name
+                                                  ,[Native_Name] = @Native_Name
+                                             WHERE [LanguageID] = @LanguageID";
+
                         cmd.Parameters.AddWithValue("@Name", item.Name);
-                        cmd.Parameters.AddWithValue("@Code", item.Code);
-                       
+                        cmd.Parameters.AddWithValue("@Native_Name", item.NativeName);
+                        cmd.Parameters.AddWithValue("@LanguageID", item.LanguageID);
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
@@ -131,7 +135,7 @@ namespace CareerCloud.ADODataAccessLayer
             }
         }
 
-        public void Remove(params SystemCountryCodePoco[] items)
+        public void Remove(params SystemLanguageCodePoco[] items)
         {
             using (SqlConnection conn = new SqlConnection(_connStr))
             {
@@ -139,12 +143,12 @@ namespace CareerCloud.ADODataAccessLayer
                 {
                     Connection = conn
                 };
-                foreach (SystemCountryCodePoco item in items)
+                foreach (SystemLanguageCodePoco item in items)
                 {
-                    cmd.CommandText = @"DELETE FROM [dbo].[System_Country_Codes]
-                                              WHERE [Name] = @Name";
+                    cmd.CommandText = @"DELETE FROM [dbo].[System_Language_Codes]
+                                              WHERE [LanguageID] = @LanguageID";
 
-                    cmd.Parameters.AddWithValue("@Name", item.Name);
+                    cmd.Parameters.AddWithValue("@LanguageID", item.LanguageID);
 
                     conn.Open();
                     int rowEffected = cmd.ExecuteNonQuery();
@@ -153,9 +157,9 @@ namespace CareerCloud.ADODataAccessLayer
             }
         }
 
-        public SystemCountryCodePoco GetSingle(Expression<Func<SystemCountryCodePoco, bool>> where, params Expression<Func<SystemCountryCodePoco, object>>[] navigationProperties)
+        public SystemLanguageCodePoco GetSingle(Expression<Func<SystemLanguageCodePoco, bool>> where, params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
         {
-            IQueryable<SystemCountryCodePoco> pocos = GetAll().AsQueryable();
+            IQueryable<SystemLanguageCodePoco> pocos = GetAll().AsQueryable();
             return pocos.Where(where).FirstOrDefault();
         }
     }
