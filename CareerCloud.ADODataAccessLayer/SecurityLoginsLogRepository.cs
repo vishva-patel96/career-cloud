@@ -55,7 +55,7 @@ namespace CareerCloud.ADODataAccessLayer
 
                 int x = 0;
                 SqlDataReader rdr = cmd.ExecuteReader();
-                SecurityLoginsLogPoco[] appPocos = new SecurityLoginsLogPoco[1000];
+                SecurityLoginsLogPoco[] appPocos = new SecurityLoginsLogPoco[5000];
                 while (rdr.Read())
                 {
                     SecurityLoginsLogPoco poco = new SecurityLoginsLogPoco();

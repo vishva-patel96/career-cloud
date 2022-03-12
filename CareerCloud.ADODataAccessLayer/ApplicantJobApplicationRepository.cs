@@ -22,10 +22,10 @@ namespace CareerCloud.ADODataAccessLayer
                                      ,[Job]
                                       ,[Application_Date])
                         VALUES
-                                    (@Id,
+                                    (@Id
                                     ,@Applicant
                                     ,@Job
-                                    ,@Application_Date";
+                                    ,@Application_Date)";
                     cmd.Parameters.AddWithValue("@Id", item.Id);
                     cmd.Parameters.AddWithValue("@Applicant", item.Applicant);
                     cmd.Parameters.AddWithValue("@Job", item.Job);

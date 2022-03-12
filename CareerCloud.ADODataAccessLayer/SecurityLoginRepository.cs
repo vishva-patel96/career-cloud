@@ -91,17 +91,17 @@ SELECT [Id]
                     poco.Login = rdr.GetString(1);
                     poco.Password = rdr.GetString(2);
                     poco.Created = rdr.GetDateTime(3);
-                    poco.PasswordUpdate = rdr.GetDateTime(4);
-                    poco.AgreementAccepted = rdr.GetDateTime(5);
+                    poco.PasswordUpdate = (rdr.IsDBNull(4)) ? new DateTime() : rdr.GetDateTime(4);
+                    poco.AgreementAccepted = (rdr.IsDBNull(5)) ? new DateTime() : rdr.GetDateTime(5);
                     poco.IsLocked = rdr.GetBoolean(6);
 
 
                     poco.IsInactive = rdr.GetBoolean(7);
                     poco.EmailAddress = rdr.GetString(8);
-                    poco.PhoneNumber = rdr.GetString(9);
-                    poco.FullName = rdr.GetString(10);
+                    poco.PhoneNumber = (rdr.IsDBNull(9)) ? String.Empty : rdr.GetString(9);
+                    poco.FullName = (rdr.IsDBNull(10)) ? String.Empty : rdr.GetString(10);
                     poco.ForceChangePassword = rdr.GetBoolean(11);
-                    poco.PrefferredLanguage = rdr.GetString(12);
+                    poco.PrefferredLanguage = (rdr.IsDBNull(12)) ? String.Empty : rdr.GetString(12);
                     poco.TimeStamp = (byte[])rdr[13];
 
                     appPocos[x] = poco;

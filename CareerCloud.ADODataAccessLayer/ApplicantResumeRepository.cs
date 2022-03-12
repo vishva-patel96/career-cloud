@@ -61,7 +61,7 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.Applicant = rdr.GetGuid(1);
                     poco.Resume = rdr.GetString(2);
 
-                    poco.LastUpdated = rdr.GetDateTime(3);
+                    poco.LastUpdated = (rdr.IsDBNull(3)) ? new DateTime() : rdr.GetDateTime(3);
 
 
 
@@ -83,7 +83,7 @@ namespace CareerCloud.ADODataAccessLayer
                 cmd.Connection = conn;
                 foreach (ApplicantResumePoco item in items)
                 {
-                    cmd.CommandText = @"UPDATE [dbo].[Applicant_Educations]
+                    cmd.CommandText = @"UPDATE [dbo].[Applicant_Resumes]
                        SET [Applicant] = @Applicant
                           ,[Resume] = @Resume
                           ,[Last_Updated] = @Last_Updated

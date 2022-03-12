@@ -42,17 +42,17 @@ namespace CareerCloud.ADODataAccessLayer
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"SELECT [Id]
-      ,[Job]
-      ,[Job_Name]
-      ,[Job_Descriptions]
-      ,[Time_Stamp]
-                                    FROM[JOB_PORTAL_DB].[dbo].[Company_Jobs_Descriptions]";
+                                  ,[Job]
+                                  ,[Job_Name]
+                                  ,[Job_Descriptions]
+                                  ,[Time_Stamp]
+                                   FROM[JOB_PORTAL_DB].[dbo].[Company_Jobs_Descriptions]";
 
                 conn.Open();
 
                 int x = 0;
                 SqlDataReader rdr = cmd.ExecuteReader();
-                CompanyJobDescriptionPoco[] appPocos = new CompanyJobDescriptionPoco[1000];
+                CompanyJobDescriptionPoco[] appPocos = new CompanyJobDescriptionPoco[5000];
                 while (rdr.Read())
                 {
                     CompanyJobDescriptionPoco poco = new CompanyJobDescriptionPoco();
@@ -61,7 +61,7 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.JobName = rdr.GetString(2);
                     poco.JobDescriptions = rdr.GetString(3);
                    
-                    poco.TimeStamp = (byte[])rdr[7];
+                    poco.TimeStamp = (byte[])rdr[4];
 
                     appPocos[x] = poco;
                     x++;

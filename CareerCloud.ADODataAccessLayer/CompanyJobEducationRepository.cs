@@ -53,7 +53,7 @@ namespace CareerCloud.ADODataAccessLayer
 
                 int x = 0;
                 SqlDataReader rdr = cmd.ExecuteReader();
-                CompanyJobEducationPoco[] appPocos = new CompanyJobEducationPoco[1000];
+                CompanyJobEducationPoco[] appPocos = new CompanyJobEducationPoco[5000];
                 while (rdr.Read())
                 {
                     CompanyJobEducationPoco poco = new CompanyJobEducationPoco();
@@ -62,7 +62,7 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.Major = rdr.GetString(2);
                     poco.Importance = rdr.GetInt16(3);
                   
-                    poco.TimeStamp = (byte[])rdr[7];
+                    poco.TimeStamp = (byte[])rdr[4];
 
                     appPocos[x] = poco;
                     x++;

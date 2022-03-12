@@ -112,15 +112,15 @@ namespace CareerCloud.ADODataAccessLayer
                 {
                     cmd.CommandText = @"UPDATE [dbo].[Applicant_Work_History]
                        SET [Applicant] = @Applicant
-                          ,[Company_Name]
-      ,[Country_Code]
-      ,[Location]
-      ,[Job_Title]
-      ,[Job_Description]
-      ,[Start_Month]
-      ,[Start_Year]
-      ,[End_Month]
-      ,[End_Year]
+                          ,[Company_Name] = @Company_Name
+                          ,[Country_Code] = @Country_Code
+                          ,[Location] = @Location
+                          ,[Job_Title] = @Job_Title
+                          ,[Job_Description] = @Job_Description
+                          ,[Start_Month] = @Start_Month
+                          ,[Start_Year] = @Start_Year
+                          ,[End_Month] = @End_Month
+                          ,[End_Year] = @End_Year
       
                        WHERE [Id] = @Id";
 

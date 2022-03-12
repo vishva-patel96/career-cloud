@@ -59,17 +59,17 @@ namespace CareerCloud.ADODataAccessLayer
 
                 int x = 0;
                 SqlDataReader rdr = cmd.ExecuteReader();
-                CompanyProfilePoco[] appPocos = new CompanyProfilePoco[1000];
+                CompanyProfilePoco[] appPocos = new CompanyProfilePoco[5000];
                 while (rdr.Read())
                 {
                     CompanyProfilePoco poco = new CompanyProfilePoco();
                     poco.Id = rdr.GetGuid(0);
                     poco.RegistrationDate = rdr.GetDateTime(1);
-                    poco.CompanyWebsite = rdr.GetString(2);
+                    poco.CompanyWebsite = (rdr.IsDBNull(2)) ? String.Empty : rdr.GetString(2);
                     poco.ContactPhone = rdr.GetString(3);
-                    poco.ContactName = rdr.GetString(4);
-                    poco.CompanyLogo = (byte[])rdr[6];
-                    poco.TimeStamp = (byte[])rdr[7];
+                    poco.ContactName = (rdr.IsDBNull(4)) ? String.Empty : rdr.GetString(4);
+                    poco.CompanyLogo = (rdr.IsDBNull(5)) ? Array.Empty<byte>() : (byte[])rdr[5];
+                    poco.TimeStamp = (byte[])rdr[6];
 
                     appPocos[x] = poco;
                     x++;

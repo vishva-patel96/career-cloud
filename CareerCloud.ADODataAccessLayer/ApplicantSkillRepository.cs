@@ -99,7 +99,7 @@ namespace CareerCloud.ADODataAccessLayer
                 cmd.Connection = conn;
                 foreach (ApplicantSkillPoco item in items)
                 {
-                    cmd.CommandText = @"UPDATE [dbo].[Applicant_Educations]
+                    cmd.CommandText = @"UPDATE [dbo].[Applicant_Skills]
                        SET [Applicant] = @Applicant
                           ,[Skill] = @Skill
                           ,[Skill_Level] = @Skill_Level

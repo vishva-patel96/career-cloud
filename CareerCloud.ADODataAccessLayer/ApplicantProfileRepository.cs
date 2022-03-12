@@ -28,8 +28,8 @@ namespace CareerCloud.ADODataAccessLayer
            ,[City_Town]
            ,[Zip_Postal_Code])
      VALUES
-           (@Id,
-           ,@Login, 
+           (@Id
+           ,@Login 
            ,@Current_Salary
            ,@Current_Rate
            ,@Currency
@@ -41,7 +41,7 @@ namespace CareerCloud.ADODataAccessLayer
                     cmd.Parameters.AddWithValue("@Id", item.Id);
                     cmd.Parameters.AddWithValue("@Login", item.Login);
                     cmd.Parameters.AddWithValue("@Current_Salary", item.CurrentSalary);
-                    cmd.Parameters.AddWithValue("@CCurrent_Rate", item.CurrentRate);
+                    cmd.Parameters.AddWithValue("@Current_Rate", item.CurrentRate);
                     cmd.Parameters.AddWithValue("@Currency", item.Currency);
                     cmd.Parameters.AddWithValue("@Country_Code", item.Country);
                     cmd.Parameters.AddWithValue("@State_Province_Code", item.Province);
@@ -98,7 +98,7 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.Street = rdr.GetString(7);
                     poco.City = rdr.GetString(8);
                     poco.PostalCode = rdr.GetString(9);
-                    poco.TimeStamp = (byte[])rdr[7];
+                    poco.TimeStamp = (byte[])rdr[10];
 
                     appPocos[x] = poco;
                     x++;
