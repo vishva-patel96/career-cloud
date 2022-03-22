@@ -36,15 +36,15 @@ namespace CareerCloud.ADODataAccessLayer
                     foreach (SystemCountryCodePoco item in items)
                     {
                         cmd.CommandText = @"INSERT INTO [dbo].[System_Country_Codes]
-           ([Code]
-           ,[Name])
+                                                       ([Code]
+                                                       ,[Name])
+                                                       
                                                  VALUES
                                                        (@Code
                                                        ,@Name)";
 
                         cmd.Parameters.AddWithValue("@Code", item.Code);
                         cmd.Parameters.AddWithValue("@Name", item.Name);
-                        
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
@@ -72,7 +72,7 @@ namespace CareerCloud.ADODataAccessLayer
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = conn;
                     cmd.CommandText = @"SELECT [Code]
-      ,[Name]
+                                              ,[Name]
                                           FROM [dbo].[System_Country_Codes]";
 
                     conn.Open();
@@ -86,7 +86,6 @@ namespace CareerCloud.ADODataAccessLayer
                             SystemCountryCodePoco poco = new SystemCountryCodePoco();
                             poco.Code = dr.GetString(0);
                             poco.Name = dr.GetString(1);
-                            
 
                             addPocos[x] = poco;
                             x++;
@@ -112,12 +111,11 @@ namespace CareerCloud.ADODataAccessLayer
                     foreach (SystemCountryCodePoco item in items)
                     {
                         cmd.CommandText = @"UPDATE [dbo].[System_Country_Codes]
-                                               SET [Code] = @Code
-                                                  WHERE [Name] = @Name";
-                                             
-                        cmd.Parameters.AddWithValue("@Name", item.Name);
+                                               SET [Name] = @Name                                                  
+                                             WHERE [Code] = @Code";
+
                         cmd.Parameters.AddWithValue("@Code", item.Code);
-                       
+                        cmd.Parameters.AddWithValue("@Name", item.Name);
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
@@ -142,9 +140,9 @@ namespace CareerCloud.ADODataAccessLayer
                 foreach (SystemCountryCodePoco item in items)
                 {
                     cmd.CommandText = @"DELETE FROM [dbo].[System_Country_Codes]
-                                              WHERE [Name] = @Name";
+                                              WHERE [Code] = @Code";
 
-                    cmd.Parameters.AddWithValue("@Name", item.Name);
+                    cmd.Parameters.AddWithValue("@Code", item.Code);
 
                     conn.Open();
                     int rowEffected = cmd.ExecuteNonQuery();
@@ -153,7 +151,7 @@ namespace CareerCloud.ADODataAccessLayer
             }
         }
 
-        public SystemCountryCodePoco GetSingle(Expression<Func<SystemCountryCodePoco, bool>> where, params Expression<Func<SystemCountryCodePoco, object>>[] navigationProperties)
+        public SystemCountryCodePoco GetSingle(Expression<Func<SystemCountryCodePoco, bool>> where, params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
         {
             IQueryable<SystemCountryCodePoco> pocos = GetAll().AsQueryable();
             return pocos.Where(where).FirstOrDefault();
