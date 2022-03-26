@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareerCloudCore.UnitTests.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CareerCloud.BusinessLogicLayer", "CareerCloud.BusinessLogicLayer\CareerCloud.BusinessLogicLayer.csproj", "{93C2C503-4F55-4C0C-A705-65CF7157A37C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareerCloudCore.UnitTests.Assignment3", "CareerCloudCore.UnitTests.Assignment3\CareerCloudCore.UnitTests.Assignment3.csproj", "{D47C6DF1-CA07-4F24-88D8-20005F0711F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{93C2C503-4F55-4C0C-A705-65CF7157A37C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93C2C503-4F55-4C0C-A705-65CF7157A37C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93C2C503-4F55-4C0C-A705-65CF7157A37C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D47C6DF1-CA07-4F24-88D8-20005F0711F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D47C6DF1-CA07-4F24-88D8-20005F0711F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D47C6DF1-CA07-4F24-88D8-20005F0711F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D47C6DF1-CA07-4F24-88D8-20005F0711F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

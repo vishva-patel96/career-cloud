@@ -8,7 +8,7 @@ namespace CareerCloud.BusinessLogicLayer
 {
     public class ValidationException : Exception
     {
-        public int code;
+        public readonly int code;
 
         public ValidationException(int Code, string Message) : base(Message)
         {
