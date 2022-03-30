@@ -29,17 +29,18 @@ namespace CareerCloud.BusinessLogicLayer
             List<ValidationException> errors = new List<ValidationException>();
             foreach (CompanyJobSkillPoco poco in pocos)
             {
-               
-              
-                if (poco.Importance > 0)
+
+
+                if (poco.Importance < 0)
                 {
                     errors.Add(new ValidationException(400, "Importance cannot be less than 0"));
                 }
+            }
                 if (errors.Count > 0)
                 {
                     throw new AggregateException(errors);
                 }
-            }
+            
 
         }
     }

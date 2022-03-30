@@ -26,45 +26,46 @@ namespace CareerCloud.BusinessLogicLayer
         }
         protected override void Verify(CompanyProfilePoco[] pocos)
         {
-            List<ValidationException> errors = new List<ValidationException>();
-            foreach (CompanyProfilePoco poco in pocos)
+            List<ValidationException> exceptions = new List<ValidationException>();
+            foreach (CompanyProfilePoco p in pocos)
 
             {
                 string[] domain = { ".ca", ".com", ".biz" };
 
-                if (domain.Any(x => poco.CompanyWebsite?.EndsWith(x) == false))
+                if (domain.Any(x => p.CompanyWebsite?.EndsWith(x) == false))
                 {
-                    errors.Add(new ValidationException(600, $"CompanyWebsite for CompanyProfile {poco.CompanyWebsite} must end with the following extensions – " + ".ca" + "," + ".com" + "," + ".biz" + "."));
+                    exceptions.Add(new ValidationException(600, $"CompanyWebsite for CompanyProfile {p.CompanyWebsite} must end with the following extensions – " + ".ca" + "," + ".com" + "," + ".biz" + "."));
                 }
 
-                string[] PhoneNumber = poco.ContactPhone?.Split('-');
-                if (PhoneNumber.Length < 3)
+                string[] phoneComponents = p.ContactPhone?.Split('-');
+                if (phoneComponents?.Length < 3)
                 {
-                    errors.Add(new ValidationException(601, "Must correspond to a valid phone number"));
+                    exceptions.Add(new ValidationException(601, $"PhoneNumber for SecurityLogin {p.Id} is not in the required format."));
                 }
                 else
                 {
-                    if(PhoneNumber?[0].Length != 3)
+                    if (phoneComponents?[0].Length != 3)
                     {
-                        errors.Add(new ValidationException(601, "Must correspond to a valid phone number"));
+                        exceptions.Add(new ValidationException(601, $"PhoneNumber for SecurityLogin {p.Id} is not in the required format."));
                     }
-                    else if (PhoneNumber?[1].Length != 3)
-                            {
-                        errors.Add(new ValidationException(601, "Must correspond to a valid phone number"));
-                    }
-                    else if (PhoneNumber?[2].Length != 4)
+                    else if (phoneComponents?[1].Length != 3)
                     {
-                        errors.Add(new ValidationException(601, "Must correspond to a valid phone number"));
+                        exceptions.Add(new ValidationException(601, $"PhoneNumber for SecurityLogin {p.Id} is not in the required format."));
+                    }
+                    else if (phoneComponents?[2].Length != 4)
+                    {
+                        exceptions.Add(new ValidationException(601, $"PhoneNumber for SecurityLogin {p.Id} is not in the required format."));
                     }
                 }
+            }
 
             
-                if (errors.Count > 0)
+                if (exceptions.Count > 0)
                 {
-                    throw new AggregateException(errors);
+                    throw new AggregateException(exceptions);
                 }
             }
 
         }
     }
-}
+
