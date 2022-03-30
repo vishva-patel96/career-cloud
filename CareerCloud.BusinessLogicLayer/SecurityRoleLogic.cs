@@ -8,33 +8,32 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.BusinessLogicLayer
 {
-    public class ApplicantJobApplicationLogic : BaseLogic<ApplicantJobApplicationPoco>
+    public class SecurityRoleLogic : BaseLogic<SecurityRolePoco>
     {
-        public ApplicantJobApplicationLogic(IDataRepository<ApplicantJobApplicationPoco> repo) : base(repo)
+        public SecurityRoleLogic(IDataRepository<SecurityRolePoco> repo) : base(repo)
         {
 
         }
-        public override void Update(ApplicantJobApplicationPoco[] pocos)
+        public override void Update(SecurityRolePoco[] pocos)
         {
             Verify(pocos);
             base.Update(pocos);
         }
-        public override void Add(ApplicantJobApplicationPoco[] pocos)
+        public override void Add(SecurityRolePoco[] pocos)
         {
             Verify(pocos);
             base.Add(pocos);
         }
-        protected override void Verify(ApplicantJobApplicationPoco[] pocos)
+        protected override void Verify(SecurityRolePoco[] pocos)
         {
             List<ValidationException> errors = new List<ValidationException>();
-            foreach (ApplicantJobApplicationPoco poco in pocos)
+            foreach (SecurityRolePoco poco in pocos)
             {
-                
-                if (poco.ApplicationDate > DateTime.Now)
+                if (string.IsNullOrEmpty(poco.Role))
                 {
-                    errors.Add(new ValidationException(110, "ApplicationDate Cannot be greater than today"));
+                    errors.Add(new ValidationException(800, "SecurityRole Cannot be empty"));
                 }
-               
+                
                 if (errors.Count > 0)
                 {
                     throw new AggregateException(errors);

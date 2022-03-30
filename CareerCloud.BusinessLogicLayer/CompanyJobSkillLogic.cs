@@ -8,33 +8,33 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.BusinessLogicLayer
 {
-    public class ApplicantJobApplicationLogic : BaseLogic<ApplicantJobApplicationPoco>
+    public class CompanyJobSkillLogic : BaseLogic<CompanyJobSkillPoco>
     {
-        public ApplicantJobApplicationLogic(IDataRepository<ApplicantJobApplicationPoco> repo) : base(repo)
+        public CompanyJobSkillLogic(IDataRepository<CompanyJobSkillPoco> repo) : base(repo)
         {
 
         }
-        public override void Update(ApplicantJobApplicationPoco[] pocos)
+        public override void Update(CompanyJobSkillPoco[] pocos)
         {
             Verify(pocos);
             base.Update(pocos);
         }
-        public override void Add(ApplicantJobApplicationPoco[] pocos)
+        public override void Add(CompanyJobSkillPoco[] pocos)
         {
             Verify(pocos);
             base.Add(pocos);
         }
-        protected override void Verify(ApplicantJobApplicationPoco[] pocos)
+        protected override void Verify(CompanyJobSkillPoco[] pocos)
         {
             List<ValidationException> errors = new List<ValidationException>();
-            foreach (ApplicantJobApplicationPoco poco in pocos)
+            foreach (CompanyJobSkillPoco poco in pocos)
             {
-                
-                if (poco.ApplicationDate > DateTime.Now)
-                {
-                    errors.Add(new ValidationException(110, "ApplicationDate Cannot be greater than today"));
-                }
                
+              
+                if (poco.Importance > 0)
+                {
+                    errors.Add(new ValidationException(400, "Importance cannot be less than 0"));
+                }
                 if (errors.Count > 0)
                 {
                     throw new AggregateException(errors);

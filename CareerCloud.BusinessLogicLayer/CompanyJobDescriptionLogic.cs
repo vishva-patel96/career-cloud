@@ -19,6 +19,11 @@ namespace CareerCloud.BusinessLogicLayer
             Verify(pocos);
             base.Update(pocos);
         }
+        public override void Add(CompanyJobDescriptionPoco[] pocos)
+        {
+            Verify(pocos);
+            base.Add(pocos);
+        }
         protected override void Verify(CompanyJobDescriptionPoco[] pocos)
         {
             List<ValidationException> errors = new List<ValidationException>();

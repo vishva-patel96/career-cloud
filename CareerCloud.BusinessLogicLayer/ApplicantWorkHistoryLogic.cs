@@ -19,6 +19,11 @@ namespace CareerCloud.BusinessLogicLayer
             Verify(pocos);
             base.Update(pocos);
         }
+        public override void Add(ApplicantWorkHistoryPoco[] pocos)
+        {
+            Verify(pocos);
+            base.Add(pocos);
+        }
         protected override void Verify(ApplicantWorkHistoryPoco[] pocos)
         {
             List<ValidationException> errors = new List<ValidationException>();
@@ -27,7 +32,7 @@ namespace CareerCloud.BusinessLogicLayer
 
 
 
-                if (poco.CompanyName.Length > 2)
+                if (poco.CompanyName.Length <3)
                 {
                     errors.Add(new ValidationException(105, "Must be greater then 2 characters"));
                 }
