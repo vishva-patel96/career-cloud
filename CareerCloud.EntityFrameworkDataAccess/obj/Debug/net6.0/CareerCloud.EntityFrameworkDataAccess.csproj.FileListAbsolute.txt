@@ -1,0 +1,17 @@
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\bin\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.deps.json
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\bin\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.dll
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\bin\Debug\net6.0\ref\CareerCloud.EntityFrameworkDataAccess.dll
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\bin\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.pdb
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\bin\Debug\net6.0\CareerCloud.DataAccessLayer.dll
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\bin\Debug\net6.0\CareerCloud.Pocos.dll
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\bin\Debug\net6.0\CareerCloud.DataAccessLayer.pdb
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\bin\Debug\net6.0\CareerCloud.Pocos.pdb
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\obj\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.csproj.AssemblyReference.cache
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\obj\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\obj\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.AssemblyInfoInputs.cache
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\obj\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.AssemblyInfo.cs
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\obj\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.csproj.CoreCompileInputs.cache
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\obj\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.csproj.CopyComplete
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\obj\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.dll
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\obj\Debug\net6.0\ref\CareerCloud.EntityFrameworkDataAccess.dll
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.EntityFrameworkDataAccess\obj\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.pdb

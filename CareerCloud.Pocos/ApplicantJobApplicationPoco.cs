@@ -5,14 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace CareerCloud.Pocos
 {
     [Table("Applicant_Job_Applications")]
 
     public class ApplicantJobApplicationPoco : IPoco
     {
-
         [Key]
         public Guid Id { get; set; }
         public Guid Applicant { get; set; }
@@ -24,6 +22,9 @@ namespace CareerCloud.Pocos
         [Column("Time_Stamp")]
 
         public byte [] TimeStamp { get; set; }
+        public virtual ApplicantProfilePoco ApplicantProfile { get; set; }
+        public virtual CompanyJobPoco CompanyJob { get; set; }
+
 
     }
 }

@@ -11,7 +11,9 @@ namespace CareerCloud.EntityFrameworkDataAccess
     public class CareerCloudContext : DbContext
     {
         public DbSet<ApplicantEducationPoco> ApplicantEducations { get; set; }
-            
+        public DbSet<ApplicantJobApplicationPoco> ApplicantJobApplications { get; set; }
+        public DbSet<ApplicantProfilePoco> ApplicantProfiles { get; set;}
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-DNVP3G7\\WINTER2022;Initial Catalog=JOB_PORTAL_DB;Integrated Security=True");
@@ -21,8 +23,8 @@ namespace CareerCloud.EntityFrameworkDataAccess
         {
             modelBuilder.Entity<ApplicantEducationPoco>(
                 entity => entity.HasOne(c => c.ApplicantProfile)
-                .WithMany(t => t.ApplicantEducations)
-                .HasForeginKey(K => K.Applicant)
+                .WithMany(t => t.ApplicantEducation)
+                .HasForeignKey(K => K.Applicant)
                 );
             modelBuilder.Entity<ApplicantEducationPoco>().Ignore(c => c.TimeStamp);
         }
