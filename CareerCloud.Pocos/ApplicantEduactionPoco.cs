@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+//using Microsoft.EntityFrameworkCore;
+
+using CareerCloud.Pocos;
 namespace CareerCloud.Pocos
 {
     [Table ("Applicant_Educations")]

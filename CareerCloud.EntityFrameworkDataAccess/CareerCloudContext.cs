@@ -21,13 +21,13 @@ namespace CareerCloud.EntityFrameworkDataAccess
         public DbSet<CompanyJobSkillPoco> companyJobSkills { get; set;}
         public DbSet<CompanyJobPoco> CompanyJobs { get; set; }
         public DbSet<CompanyJobDescriptionPoco> companyJobDescriptions { get; set; }
-        public DbSet<CompanyLocationPoco> companyLocation { get; set; }
-        public DbSet<SecurityLoginsLogPoco> securityLoginsLog { get; set; }
-        public DbSet<SecurityLoginsRolePoco> securityLoginsRole { get; set;}
+        public DbSet<CompanyLocationPoco> companyLocations { get; set; }
+        public DbSet<SecurityLoginsLogPoco> securityLoginsLogs { get; set; }
+        public DbSet<SecurityLoginsRolePoco> securityLoginsRoles { get; set;}
         public DbSet <SystemLanguageCodePoco> systemLanguageCodes { get; set; }
-        public DbSet<SystemCountryCodePoco> systemCountryCode { get; set; }
+        public DbSet<SystemCountryCodePoco> systemCountryCodes { get; set; }
         public DbSet<SecurityRolePoco> securityRoles { get; set; }
-        public DbSet<SecurityLoginPoco> securityLogin { get; set; }
+        public DbSet<SecurityLoginPoco> securityLogins { get; set; }
         public DbSet<CompanyProfilePoco> companyProfiles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -37,12 +37,142 @@ namespace CareerCloud.EntityFrameworkDataAccess
         }
         protected override void OnModelCreating (ModelBuilder modelBuilder)
         {
+            //Applicant eduaction
             modelBuilder.Entity<ApplicantEducationPoco>(
                 entity => entity.HasOne(c => c.ApplicantProfile)
                 .WithMany(t => t.ApplicantEducation)
-                .HasForeignKey(K => K.Applicant)
+                .HasForeignKey(k => k.Applicant)
                 );
-            modelBuilder.Entity<ApplicantEducationPoco>().Ignore(c => c.TimeStamp);
+            //ApplicantJobApplication
+            modelBuilder.Entity<ApplicantJobApplicationPoco>(
+                entity => entity.HasOne(c => c.ApplicantProfile)
+                .WithMany(t => t.ApplicantJobApplication)
+                .HasForeignKey(k => k.Applicant)
+                );
+            modelBuilder.Entity<ApplicantJobApplicationPoco>(
+                entity => entity.HasOne(c => c.CompanyJob)
+                .WithMany(t => t.ApplicantJobApplications)
+                .HasForeignKey(k => k.Job)
+                );
+            //Applicant profile
+            modelBuilder.Entity<ApplicantProfilePoco>(
+               entity => entity.HasOne(c => c.SecurityLogin)
+               .WithMany(t => t.ApplicantProfile)
+               .HasForeignKey(k => k.Login)
+               );
+            modelBuilder.Entity<ApplicantProfilePoco>(
+               entity => entity.HasOne(c => c.SystemCountryCode)
+               .WithMany(t => t.ApplicantProfile)
+               .HasForeignKey(k => k.Country)
+               );
+
+            //ApplicantResumePoco
+            modelBuilder.Entity<ApplicantResumePoco>(
+               entity => entity.HasOne(c => c.ApplicantProfile)
+               .WithMany(t => t.ApplicantResume)
+               .HasForeignKey(k => k.Applicant)
+               );
+
+            //ApplicantSkillPoco
+            modelBuilder.Entity<ApplicantSkillPoco>(
+              entity => entity.HasOne(c => c.ApplicantProfile)
+              .WithMany(t => t.ApplicantSkill)
+              .HasForeignKey(k => k.Applicant)
+              );
+
+            //ApplicantWorkHistory
+            modelBuilder.Entity<ApplicantWorkHistoryPoco>(
+              entity => entity.HasOne(c => c.ApplicantProfile)
+              .WithMany(t => t.ApplicantWorkHistory)
+              .HasForeignKey(k => k.Applicant)
+              );
+            modelBuilder.Entity<ApplicantWorkHistoryPoco>(
+              entity => entity.HasOne(c => c.SystemCountryCode)
+              .WithMany(t => t.ApplicantWorkHistory)
+              .HasForeignKey(k => k.CountryCode)
+              );
+
+            //CompanyDescriptionPoco
+            modelBuilder.Entity<CompanyDescriptionPoco>(
+              entity => entity.HasOne(c => c.CompanyProfile)
+              .WithMany(t => t.CompanyDescription)
+              .HasForeignKey(k => k.Company)
+              );
+
+            modelBuilder.Entity<CompanyDescriptionPoco>(
+             entity => entity.HasOne(c => c.SystemLanguageCode)
+             .WithMany(t => t.CompanyDescriptions)
+             .HasForeignKey(k => k.LanguageId)
+             );
+
+            //CompanyJobDescriptionPoco
+            modelBuilder.Entity<CompanyJobDescriptionPoco>(
+            entity => entity.HasOne(c => c.CompanyJob)
+            .WithMany(t => t.CompanyJobDescriptions)
+            .HasForeignKey(k => k.Job)
+            );
+
+            //CompanyJobEducationPoco
+
+           modelBuilder.Entity<CompanyJobEducationPoco>(
+           entity => entity.HasOne(c => c.CompanyJob)
+           .WithMany(t => t.CompanyJobEducations)
+           .HasForeignKey(k => k.Job)
+           );
+
+            //CompanyJobPoco
+
+            modelBuilder.Entity<CompanyJobPoco>(
+           entity => entity.HasOne(c => c.CompanyProfile)
+           .WithMany(t => t.CompanyJobs)
+           .HasForeignKey(k => k.Company)
+           );
+
+            //CompanyJobSkill
+            modelBuilder.Entity<CompanyJobSkillPoco>(
+          entity => entity.HasOne(c => c.CompanyJob)
+          .WithMany(t => t.CompanyJobSkill)
+          .HasForeignKey(k => k.Job)
+          );
+            //CompanyLocationPoco
+
+         modelBuilder.Entity<CompanyLocationPoco>(
+        entity => entity.HasOne(c => c.CompanyProfile)
+        .WithMany(t => t.CompanyLocation)
+        .HasForeignKey(k => k.Company)
+        );
+            // SecurityLoginsLogPoco
+            modelBuilder.Entity<SecurityLoginsLogPoco>(
+        entity => entity.HasOne(c => c.SecurityLogin)
+        .WithMany(t => t.SecurityLoginsLogs)
+        .HasForeignKey(k => k.Login)
+        );
+            //SecurityLoginsRolePoco
+        modelBuilder.Entity<SecurityLoginsRolePoco>(
+       entity => entity.HasOne(c => c.SecurityLogin)
+       .WithMany(t => t.SecurityLoginsRoles)
+       .HasForeignKey(k => k.Login)
+       );
+        modelBuilder.Entity<SecurityLoginsRolePoco>(
+       entity => entity.HasOne(c => c.SecurityRole)
+       .WithMany(t => t.SecurityLoginsRoles)
+       .HasForeignKey(k => k.Role)
+       );
+            
+           modelBuilder.Entity<ApplicantEducationPoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<ApplicantJobApplicationPoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<ApplicantProfilePoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<ApplicantSkillPoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<ApplicantWorkHistoryPoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<CompanyDescriptionPoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<CompanyJobDescriptionPoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<CompanyJobEducationPoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<CompanyJobPoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<CompanyJobSkillPoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<CompanyLocationPoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<CompanyProfilePoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<SecurityLoginPoco>().Ignore(c => c.TimeStamp);
+            modelBuilder.Entity<SecurityLoginsRolePoco>().Ignore(c => c.TimeStamp);
         }
     }
 }
