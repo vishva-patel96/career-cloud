@@ -19,12 +19,13 @@ namespace CareerCloud.EntityFrameworkDataAccess
         public void Add(params T[] items)
         {
             foreach(T item in items)
-            {
-                _context.Entry(item).State= EntityState.Added;
+           {
+               _context.Entry(item).State= EntityState.Added;
 
             }
             _context.SaveChanges();
         }
+       
 
         public void CallStoredProc(string name, params Tuple<string, string>[] parameters)
         {

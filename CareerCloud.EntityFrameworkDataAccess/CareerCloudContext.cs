@@ -40,13 +40,13 @@ namespace CareerCloud.EntityFrameworkDataAccess
             //Applicant eduaction
             modelBuilder.Entity<ApplicantEducationPoco>(
                 entity => entity.HasOne(c => c.ApplicantProfile)
-                .WithMany(t => t.ApplicantEducation)
+                .WithMany(t => t.ApplicantEducations)
                 .HasForeignKey(k => k.Applicant)
                 );
             //ApplicantJobApplication
             modelBuilder.Entity<ApplicantJobApplicationPoco>(
                 entity => entity.HasOne(c => c.ApplicantProfile)
-                .WithMany(t => t.ApplicantJobApplication)
+                .WithMany(t => t.ApplicantJobApplications)
                 .HasForeignKey(k => k.Applicant)
                 );
             modelBuilder.Entity<ApplicantJobApplicationPoco>(
@@ -57,7 +57,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
             //Applicant profile
             modelBuilder.Entity<ApplicantProfilePoco>(
                entity => entity.HasOne(c => c.SecurityLogin)
-               .WithMany(t => t.ApplicantProfile)
+               .WithMany(t => t.ApplicantProfiles)
                .HasForeignKey(k => k.Login)
                );
             modelBuilder.Entity<ApplicantProfilePoco>(
@@ -69,21 +69,21 @@ namespace CareerCloud.EntityFrameworkDataAccess
             //ApplicantResumePoco
             modelBuilder.Entity<ApplicantResumePoco>(
                entity => entity.HasOne(c => c.ApplicantProfile)
-               .WithMany(t => t.ApplicantResume)
+               .WithMany(t => t.ApplicantResumes)
                .HasForeignKey(k => k.Applicant)
                );
 
             //ApplicantSkillPoco
             modelBuilder.Entity<ApplicantSkillPoco>(
               entity => entity.HasOne(c => c.ApplicantProfile)
-              .WithMany(t => t.ApplicantSkill)
+              .WithMany(t => t.ApplicantSkills)
               .HasForeignKey(k => k.Applicant)
               );
 
             //ApplicantWorkHistory
             modelBuilder.Entity<ApplicantWorkHistoryPoco>(
               entity => entity.HasOne(c => c.ApplicantProfile)
-              .WithMany(t => t.ApplicantWorkHistory)
+              .WithMany(t => t.ApplicantWorkHistorys)
               .HasForeignKey(k => k.Applicant)
               );
             modelBuilder.Entity<ApplicantWorkHistoryPoco>(
@@ -95,7 +95,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
             //CompanyDescriptionPoco
             modelBuilder.Entity<CompanyDescriptionPoco>(
               entity => entity.HasOne(c => c.CompanyProfile)
-              .WithMany(t => t.CompanyDescription)
+              .WithMany(t => t.CompanyDescriptions)
               .HasForeignKey(k => k.Company)
               );
 
@@ -131,16 +131,21 @@ namespace CareerCloud.EntityFrameworkDataAccess
             //CompanyJobSkill
             modelBuilder.Entity<CompanyJobSkillPoco>(
           entity => entity.HasOne(c => c.CompanyJob)
-          .WithMany(t => t.CompanyJobSkill)
+          .WithMany(t => t.CompanyJobSkills)
           .HasForeignKey(k => k.Job)
           );
             //CompanyLocationPoco
 
          modelBuilder.Entity<CompanyLocationPoco>(
         entity => entity.HasOne(c => c.CompanyProfile)
-        .WithMany(t => t.CompanyLocation)
+        .WithMany(t => t.CompanyLocations)
         .HasForeignKey(k => k.Company)
         );
+        modelBuilder.Entity<CompanyLocationPoco>(
+       entity => entity.HasOne(c => c.SystemCountryCode)
+       .WithMany(t => t.CompanyLocation)
+       .HasForeignKey(k => k.CountryCode)
+       );
             // SecurityLoginsLogPoco
             modelBuilder.Entity<SecurityLoginsLogPoco>(
         entity => entity.HasOne(c => c.SecurityLogin)
