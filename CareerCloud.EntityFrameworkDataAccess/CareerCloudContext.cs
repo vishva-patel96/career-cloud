@@ -1,5 +1,6 @@
 ﻿using CareerCloud.Pocos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
         public DbSet<CompanyJobPoco> CompanyJobs { get; set; }
         public DbSet<CompanyJobDescriptionPoco> companyJobDescriptions { get; set; }
         public DbSet<CompanyLocationPoco> companyLocations { get; set; }
+        //public DbSet<CompanyProfilePoco> companyProfiles { get; set; }
         public DbSet<SecurityLoginsLogPoco> securityLoginsLogs { get; set; }
         public DbSet<SecurityLoginsRolePoco> securityLoginsRoles { get; set;}
         public DbSet <SystemLanguageCodePoco> systemLanguageCodes { get; set; }
@@ -34,6 +36,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-DNVP3G7\\WINTER2022;Initial Catalog=JOB_PORTAL_DB;Integrated Security=True");
             base.OnConfiguring(optionsBuilder);
+           
         }
         protected override void OnModelCreating (ModelBuilder modelBuilder)
         {

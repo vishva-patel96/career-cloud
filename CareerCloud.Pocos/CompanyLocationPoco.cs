@@ -13,8 +13,11 @@ namespace CareerCloud.Pocos
     {
         [Key]
         public Guid Id { get; set; }
+        [ForeignKey("FK_Company_Locations_Company_Profiles")]
         public Guid Company { get; set; }
         [Column("Country_Code")]
+       
+        [ForeignKey("FK_Company_Locations_System_Country_Codes")]
         public string? CountryCode { get; set; }
         [Column("State_Province_Code")]
         public string? Province { get; set; }

@@ -13,7 +13,10 @@ namespace CareerCloud.Pocos
     {
         [Key]
         public Guid Id { get; set; }
+        [ForeignKey("FK_Company_Descriptions_Company_Profiles")]
         public Guid Company { get; set; }
+        [ForeignKey("FK_Company_Descriptions_System_Language_Codes")]
+
         [Column("LanguageID")]
         public string LanguageId { get; set; }
         [Column("Company_Name")]
