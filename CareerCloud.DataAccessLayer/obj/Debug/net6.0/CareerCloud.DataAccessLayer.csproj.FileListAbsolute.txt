@@ -9,3 +9,4 @@ C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.DataAccessLayer\
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.DataAccessLayer\obj\Debug\net6.0\CareerCloud.DataAccessLayer.dll
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.DataAccessLayer\obj\Debug\net6.0\ref\CareerCloud.DataAccessLayer.dll
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.DataAccessLayer\obj\Debug\net6.0\CareerCloud.DataAccessLayer.pdb
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.DataAccessLayer\obj\Debug\net6.0\CareerCloud.DataAccessLayer.csproj.AssemblyReference.cache
