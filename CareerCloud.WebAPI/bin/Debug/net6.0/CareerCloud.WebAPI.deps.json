@@ -8,8 +8,11 @@
     ".NETCoreApp,Version=v6.0": {
       "CareerCloud.WebAPI/1.0.0": {
         "dependencies": {
+          "CareerCloud.ADODataAccessLayer": "1.0.0",
           "CareerCloud.BusinessLogicLayer": "1.0.0",
+          "CareerCloud.DataAccessLayer": "1.0.0",
           "CareerCloud.EntityFrameworkDataAccess": "1.0.0",
+          "CareerCloud.Pocos": "1.0.0",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Swashbuckle.AspNetCore": "6.2.3"
         },

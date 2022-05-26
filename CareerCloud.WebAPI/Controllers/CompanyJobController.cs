@@ -1,4 +1,5 @@
 ﻿using CareerCloud.BusinessLogicLayer;
+using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +12,10 @@ namespace CareerCloud.WebAPI.Controllers
     {
         private readonly CompanyJobLogic _logic;
 
-        public CompanyJobController(CompanyJobLogic logic)
+        public CompanyJobController()
         {
-            _logic = logic;
+            EFGenericRepository<CompanyJobPoco> companyJobRepository = new EFGenericRepository<CompanyJobPoco>();
+            _logic = new CompanyJobLogic(companyJobRepository);
         }
 
         [HttpGet]

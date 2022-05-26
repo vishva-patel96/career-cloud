@@ -2636,8 +2636,11 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "CareerCloud.ADODataAccessLayer >= 1.0.0",
       "CareerCloud.BusinessLogicLayer >= 1.0.0",
+      "CareerCloud.DataAccessLayer >= 1.0.0",
       "CareerCloud.EntityFrameworkDataAccess >= 1.0.0",
+      "CareerCloud.Pocos >= 1.0.0",
       "Microsoft.AspNetCore.Http.Abstractions >= 2.2.0",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
@@ -2669,11 +2672,20 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\1996v\\Documents\\Course work\\C#\\CareerCloud\\CareerCloud.ADODataAccessLayer\\CareerCloud.ADODataAccessLayer.csproj": {
+              "projectPath": "C:\\Users\\1996v\\Documents\\Course work\\C#\\CareerCloud\\CareerCloud.ADODataAccessLayer\\CareerCloud.ADODataAccessLayer.csproj"
+            },
             "C:\\Users\\1996v\\Documents\\Course work\\C#\\CareerCloud\\CareerCloud.BusinessLogicLayer\\CareerCloud.BusinessLogicLayer.csproj": {
               "projectPath": "C:\\Users\\1996v\\Documents\\Course work\\C#\\CareerCloud\\CareerCloud.BusinessLogicLayer\\CareerCloud.BusinessLogicLayer.csproj"
             },
+            "C:\\Users\\1996v\\Documents\\Course work\\C#\\CareerCloud\\CareerCloud.DataAccessLayer\\CareerCloud.DataAccessLayer.csproj": {
+              "projectPath": "C:\\Users\\1996v\\Documents\\Course work\\C#\\CareerCloud\\CareerCloud.DataAccessLayer\\CareerCloud.DataAccessLayer.csproj"
+            },
             "C:\\Users\\1996v\\Documents\\Course work\\C#\\CareerCloud\\CareerCloud.EntityFrameworkDataAccess\\CareerCloud.EntityFrameworkDataAccess.csproj": {
               "projectPath": "C:\\Users\\1996v\\Documents\\Course work\\C#\\CareerCloud\\CareerCloud.EntityFrameworkDataAccess\\CareerCloud.EntityFrameworkDataAccess.csproj"
+            },
+            "C:\\Users\\1996v\\Documents\\Course work\\C#\\CareerCloud\\CareerCloud.Pocos\\CareerCloud.Pocos.csproj": {
+              "projectPath": "C:\\Users\\1996v\\Documents\\Course work\\C#\\CareerCloud\\CareerCloud.Pocos\\CareerCloud.Pocos.csproj"
             }
           }
         }

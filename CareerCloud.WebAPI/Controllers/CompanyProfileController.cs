@@ -1,4 +1,5 @@
 ﻿using CareerCloud.BusinessLogicLayer;
+using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,23 +8,25 @@ namespace CareerCloud.WebAPI.Controllers
 {
     [Route("api/careercloud/company/v1")]
     [ApiController]
-    public class CompanyJobDescriptionController : ControllerBase
+    public class CompanyProfileController : ControllerBase
     {
-        private readonly CompanyJobDescriptionLogic _logic;
+        private readonly CompanyProfileLogic _logic;
 
-        public CompanyJobDescriptionController(CompanyJobDescriptionLogic logic)
+        public CompanyProfileController()
         {
-            _logic = logic;
-        }
+            EFGenericRepository<CompanyProfilePoco> companyProfileRepository = new EFGenericRepository<CompanyProfilePoco>();
+            _logic = new CompanyProfileLogic(companyProfileRepository);
 
-        [HttpGet]
-        [Route("jobsdescription/{id}")]
+           
+        }
+            [HttpGet]
+        [Route("profile/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult GetCompanyJobDescription(Guid id)
+        public ActionResult GetCompanyProfile(Guid id)
         {
-            CompanyJobDescriptionPoco poco = _logic.Get(id);
+            CompanyProfilePoco poco = _logic.Get(id);
             if (poco == null)
             {
                 return null;
@@ -32,13 +35,13 @@ namespace CareerCloud.WebAPI.Controllers
 
         }
         [HttpGet]
-        [Route("jobsdescription")]
+        [Route("profile")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public ActionResult GetAllCompanyJobDescription()
+        public ActionResult GetAllCompanyProfile()
         {
-            List<CompanyJobDescriptionPoco> pocos = _logic.GetAll();
+            List<CompanyProfilePoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
                 return NotFound();
@@ -51,38 +54,39 @@ namespace CareerCloud.WebAPI.Controllers
 
         }
         [HttpPost]
-        [Route("jobsdescription")]
+        [Route("profile")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult PostCompanyJobDescription([FromBody] CompanyJobDescriptionPoco[] companyJobDescriptionPoco)
+        public ActionResult PostCompanyProfile([FromBody] CompanyProfilePoco[] companyProfilePocos)
         {
-            _logic.Add(companyJobDescriptionPoco);
+            _logic.Add(companyProfilePocos);
             return Ok();
-
         }
+
+
+
         [HttpPut]
-        [Route("jobsdescription")]
+        [Route("profile")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutCompanyJobDescription([FromBody] CompanyJobDescriptionPoco[] companyJobDescriptionPoco)
+        public ActionResult PutCompanyProfile([FromBody] CompanyProfilePoco[] companyProfilePoco)
         {
-            _logic.Update(companyJobDescriptionPoco);
+            _logic.Update(companyProfilePoco);
             return Ok();
 
         }
         [HttpDelete]
-        [Route("jobsdescription")]
+        [Route("profile")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult DeleteCompanyJobDescription([FromBody] CompanyJobDescriptionPoco[] companyJobDescriptionPocos)
+        public ActionResult DeleteCompanyProfile([FromBody] CompanyProfilePoco[] companyProfilePocos)
         {
-            _logic.Delete(companyJobDescriptionPocos);
+            _logic.Delete(companyProfilePocos);
             return Ok();
         }
-
     }
 }

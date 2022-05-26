@@ -14,6 +14,7 @@ namespace CareerCloud.BusinessLogicLayer
         {
 
         }
+
         public override void Update(ApplicantEducationPoco[] pocos)
         {
             Verify(pocos);

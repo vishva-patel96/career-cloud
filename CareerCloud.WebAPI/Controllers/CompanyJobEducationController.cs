@@ -12,9 +12,11 @@ namespace CareerCloud.WebAPI.Controllers
     {
         private readonly CompanyJobEducationLogic _logic;
 
-        public CompanyJobEducationController(CompanyJobEducationLogic logic)
+        public CompanyJobEducationController()
         {
-            _logic = logic;
+            EFGenericRepository<CompanyJobEducationPoco> companyJobEducationRepository = new EFGenericRepository<CompanyJobEducationPoco>();
+            _logic = new CompanyJobEducationLogic(companyJobEducationRepository);
+
         }
 
         [HttpGet]

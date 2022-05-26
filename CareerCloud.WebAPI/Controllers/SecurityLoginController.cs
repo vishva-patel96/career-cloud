@@ -6,27 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CareerCloud.WebAPI.Controllers
 {
-    [Route("api/careercloud/company/v1")]
+    [Route("api/careercloud/security/v1")]
     [ApiController]
-    public class CompanyDescriptionController : ControllerBase
+    public class SecurityLoginController : ControllerBase
     {
-        private readonly CompanyDescriptionLogic _logic;
+        private readonly SecurityLoginLogic _logic;
 
-        public CompanyDescriptionController()
+        public SecurityLoginController()
         {
-            EFGenericRepository<CompanyDescriptionPoco> companyDescriptionRepository = new EFGenericRepository<CompanyDescriptionPoco>();
-            _logic = new CompanyDescriptionLogic(companyDescriptionRepository);
-
+            EFGenericRepository<SecurityLoginPoco> securityLoginRepository = new EFGenericRepository<SecurityLoginPoco>();
+            _logic = new SecurityLoginLogic(securityLoginRepository);
         }
 
         [HttpGet]
-        [Route("description/{id}")]
+        [Route("login/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult GetCompanyDescription(Guid id)
+        public ActionResult GetSecurityLogin(Guid id)
         {
-            CompanyDescriptionPoco poco = _logic.Get(id);
+            SecurityLoginPoco poco = _logic.Get(id);
             if (poco == null)
             {
                 return null;
@@ -35,13 +34,13 @@ namespace CareerCloud.WebAPI.Controllers
 
         }
         [HttpGet]
-        [Route("description")]
+        [Route("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public ActionResult GetAllCompanyDescription()
+        public ActionResult GetAllSecurityLogin()
         {
-            List<CompanyDescriptionPoco> pocos = _logic.GetAll();
+            List<SecurityLoginPoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
                 return NotFound();
@@ -54,36 +53,36 @@ namespace CareerCloud.WebAPI.Controllers
 
         }
         [HttpPost]
-        [Route("description")]
+        [Route("login")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult PostCompanyDescription([FromBody] CompanyDescriptionPoco[] companyDescriptionPoco)
+        public ActionResult PostSecurityLogin([FromBody] SecurityLoginPoco[] securityLoginPoco)
         {
-            _logic.Add(companyDescriptionPoco);
+            _logic.Add(securityLoginPoco);
             return Ok();
 
         }
         [HttpPut]
-        [Route("description")]
+        [Route("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutCompanyDescription([FromBody] CompanyDescriptionPoco[] companyDescriptionPoco)
+        public ActionResult PutSecurityLogin([FromBody] SecurityLoginPoco[] securityLoginPoco)
         {
-            _logic.Update(companyDescriptionPoco);
+            _logic.Update(securityLoginPoco);
             return Ok();
 
         }
         [HttpDelete]
-        [Route("description")]
+        [Route("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult DeleteCompanyDescription([FromBody] CompanyDescriptionPoco[] companyDescriptionPocos)
+        public ActionResult DeleteSecurityLogin([FromBody] SecurityLoginPoco[] securityLoginPocos)
         {
-            _logic.Delete(companyDescriptionPocos);
+            _logic.Delete(securityLoginPocos);
             return Ok();
         }
 

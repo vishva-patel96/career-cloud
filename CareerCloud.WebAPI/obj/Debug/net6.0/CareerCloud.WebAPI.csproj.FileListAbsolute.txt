@@ -54,10 +54,10 @@ C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\bin\Debug
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\bin\Debug\net6.0\CareerCloud.DataAccessLayer.dll
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\bin\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.dll
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\bin\Debug\net6.0\CareerCloud.Pocos.dll
-C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\bin\Debug\net6.0\CareerCloud.BusinessLogicLayer.pdb
-C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\bin\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.pdb
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\bin\Debug\net6.0\CareerCloud.ADODataAccessLayer.pdb
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\bin\Debug\net6.0\CareerCloud.BusinessLogicLayer.pdb
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\bin\Debug\net6.0\CareerCloud.DataAccessLayer.pdb
+C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\bin\Debug\net6.0\CareerCloud.EntityFrameworkDataAccess.pdb
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\bin\Debug\net6.0\CareerCloud.Pocos.pdb
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\obj\Debug\net6.0\CareerCloud.WebAPI.csproj.AssemblyReference.cache
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.WebAPI\obj\Debug\net6.0\CareerCloud.WebAPI.GeneratedMSBuildEditorConfig.editorconfig

@@ -1,4 +1,10 @@
-﻿using CareerCloud.BusinessLogicLayer;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CareerCloud.BusinessLogicLayer;
+using CareerCloud.DataAccessLayer;
+using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +17,14 @@ namespace CareerCloud.WebAPI.Controllers
     {
         private readonly ApplicantEducationLogic _logic;
 
-        public ApplicantEducationController(ApplicantEducationLogic logic)
+        public ApplicantEducationController()
         {
-            _logic = logic;
-        }
+            //IDataRepository<ApplicantEducationPoco> repo = new IDataRepository<ApplicantEducationPoco>();
+            EFGenericRepository<ApplicantEducationPoco> applicantEducationRepository = new EFGenericRepository<ApplicantEducationPoco>();
+            _logic = new ApplicantEducationLogic(applicantEducationRepository);
 
-      [HttpGet]
+        }
+            [HttpGet]
       [Route("education/{applicantEducationId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

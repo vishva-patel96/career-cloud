@@ -13,7 +13,6 @@ C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.Pocos\bin\Debug\
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.Pocos\bin\Debug\net6.0\CareerCloud.Pocos.dll
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.Pocos\bin\Debug\net6.0\ref\CareerCloud.Pocos.dll
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.Pocos\bin\Debug\net6.0\CareerCloud.Pocos.pdb
-C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.Pocos\obj\Debug\net6.0\CareerCloud.Pocos.csproj.AssemblyReference.cache
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.Pocos\obj\Debug\net6.0\CareerCloud.Pocos.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.Pocos\obj\Debug\net6.0\CareerCloud.Pocos.AssemblyInfoInputs.cache
 C:\Users\1996v\Documents\Course work\C#\CareerCloud\CareerCloud.Pocos\obj\Debug\net6.0\CareerCloud.Pocos.AssemblyInfo.cs

@@ -1,4 +1,5 @@
 ﻿using CareerCloud.BusinessLogicLayer;
+using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +12,11 @@ namespace CareerCloud.WebAPI.Controllers
     {
         private readonly ApplicantSkillLogic _logic;
 
-        public ApplicantSkillController(ApplicantSkillLogic logic)
+        public ApplicantSkillController()
         {
-            _logic = logic;
+            EFGenericRepository<ApplicantSkillPoco> applicantSkillRepository = new EFGenericRepository<ApplicantSkillPoco>();
+            _logic = new ApplicantSkillLogic(applicantSkillRepository);
+
         }
 
         [HttpGet]

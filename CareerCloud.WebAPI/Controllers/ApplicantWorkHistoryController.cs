@@ -11,9 +11,10 @@ namespace CareerCloud.WebAPI.Controllers
     {
         private readonly ApplicantWorkHistoryLogic _logic;
 
-        public ApplicantWorkHistoryController(ApplicantWorkHistoryLogic logic)
+        public ApplicantWorkHistoryController()
         {
-            _logic = logic;
+            EFGenericRepository<ApplicantWorkHistoryPoco> applicantWorkHistoryRepository = new EFGenericRepository<ApplicantWorkHistoryPoco>();
+            _logic = new ApplicantWorkHistoryLogic(applicantWorkHistoryRepository);
         }
 
         [HttpGet]
