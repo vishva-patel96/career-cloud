@@ -1,7 +1,8 @@
-﻿using CareerCloud.BusinessLogicLayer;
+﻿using System;
+using System.Collections.Generic;
+using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareerCloud.WebAPI.Controllers
@@ -14,72 +15,72 @@ namespace CareerCloud.WebAPI.Controllers
 
         public SecurityLoginController()
         {
-            EFGenericRepository<SecurityLoginPoco> securityLoginRepository = new EFGenericRepository<SecurityLoginPoco>();
-            _logic = new SecurityLoginLogic(securityLoginRepository);
+            var repo = new EFGenericRepository<SecurityLoginPoco>();
+            _logic = new SecurityLoginLogic(repo);
         }
 
+        //Get on ID
         [HttpGet]
         [Route("login/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+       
+        [ProducesResponseType(200, Type = typeof(SecurityLoginPoco))]
         public ActionResult GetSecurityLogin(Guid id)
         {
             SecurityLoginPoco poco = _logic.Get(id);
             if (poco == null)
             {
-                return null;
+                //404
+                return NotFound();
             }
-            return Ok(poco);
-
+            else
+            {
+                //200
+                return Ok(poco);
+            }
         }
+
+       
         [HttpGet]
         [Route("login")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
+       
+        [ProducesResponseType(200, Type = typeof(List<SecurityLoginPoco>))]
         public ActionResult GetAllSecurityLogin()
         {
             List<SecurityLoginPoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
+                //404
                 return NotFound();
             }
             else
-
             {
+                //200
                 return Ok(pocos);
             }
 
         }
+
+        
         [HttpPost]
         [Route("login")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult PostSecurityLogin([FromBody] SecurityLoginPoco[] securityLoginPoco)
+        public ActionResult PostSecurityLogin([FromBody] SecurityLoginPoco[] securityLoginPocos)
         {
-            _logic.Add(securityLoginPoco);
+            _logic.Add(securityLoginPocos);
             return Ok();
-
         }
+
+        
         [HttpPut]
         [Route("login")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutSecurityLogin([FromBody] SecurityLoginPoco[] securityLoginPoco)
+        public ActionResult PutSecurityLogin([FromBody] SecurityLoginPoco[] securityLoginPocos)
         {
-            _logic.Update(securityLoginPoco);
+            _logic.Update(securityLoginPocos);
             return Ok();
-
         }
+
+        
         [HttpDelete]
         [Route("login")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult DeleteSecurityLogin([FromBody] SecurityLoginPoco[] securityLoginPocos)
         {
             _logic.Delete(securityLoginPocos);

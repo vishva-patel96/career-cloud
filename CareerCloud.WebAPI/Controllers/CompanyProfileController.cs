@@ -1,7 +1,8 @@
-﻿using CareerCloud.BusinessLogicLayer;
+﻿using System;
+using System.Collections.Generic;
+using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareerCloud.WebAPI.Controllers
@@ -14,79 +15,77 @@ namespace CareerCloud.WebAPI.Controllers
 
         public CompanyProfileController()
         {
-            EFGenericRepository<CompanyProfilePoco> companyProfileRepository = new EFGenericRepository<CompanyProfilePoco>();
-            _logic = new CompanyProfileLogic(companyProfileRepository);
-
-           
+            var repo = new EFGenericRepository<CompanyProfilePoco>();
+            _logic = new CompanyProfileLogic(repo);
         }
-            [HttpGet]
+
+        
+        [HttpGet]
         [Route("profile/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        
+        [ProducesResponseType(200, Type = typeof(CompanyProfilePoco))]
         public ActionResult GetCompanyProfile(Guid id)
         {
             CompanyProfilePoco poco = _logic.Get(id);
             if (poco == null)
             {
-                return null;
+                //404
+                return NotFound();
             }
-            return Ok(poco);
-
+            else
+            {
+                //200
+                return Ok(poco);
+            }
         }
+
+        //Get All
         [HttpGet]
         [Route("profile")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
+        
+        [ProducesResponseType(200, Type = typeof(List<CompanyProfilePoco>))]
         public ActionResult GetAllCompanyProfile()
         {
             List<CompanyProfilePoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
+                //404
                 return NotFound();
             }
             else
-
             {
+                //200
                 return Ok(pocos);
             }
 
         }
+
+        
         [HttpPost]
         [Route("profile")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult PostCompanyProfile([FromBody] CompanyProfilePoco[] companyProfilePocos)
         {
             _logic.Add(companyProfilePocos);
             return Ok();
         }
 
-
-
+       
         [HttpPut]
         [Route("profile")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutCompanyProfile([FromBody] CompanyProfilePoco[] companyProfilePoco)
+        public ActionResult PutCompanyProfile([FromBody] CompanyProfilePoco[] companyProfilePocos)
         {
-            _logic.Update(companyProfilePoco);
+            _logic.Update(companyProfilePocos);
             return Ok();
-
         }
+
+       
         [HttpDelete]
         [Route("profile")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult DeleteCompanyProfile([FromBody] CompanyProfilePoco[] companyProfilePocos)
         {
             _logic.Delete(companyProfilePocos);
             return Ok();
         }
+
     }
 }

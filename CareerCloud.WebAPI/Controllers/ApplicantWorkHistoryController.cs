@@ -1,11 +1,13 @@
-﻿using CareerCloud.BusinessLogicLayer;
-using CareerCloud.Pocos;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
+using CareerCloud.Pocos;
+using Microsoft.AspNetCore.Mvc;
+
 namespace CareerCloud.WebAPI.Controllers
 {
-   [Route("api/careercloud/applicant/v1")]
+    [Route("api/careercloud/applicant/v1")]
     [ApiController]
     public class ApplicantWorkHistoryController : ControllerBase
     {
@@ -13,77 +15,81 @@ namespace CareerCloud.WebAPI.Controllers
 
         public ApplicantWorkHistoryController()
         {
-            EFGenericRepository<ApplicantWorkHistoryPoco> applicantWorkHistoryRepository = new EFGenericRepository<ApplicantWorkHistoryPoco>();
-            _logic = new ApplicantWorkHistoryLogic(applicantWorkHistoryRepository);
+            var repo = new EFGenericRepository<ApplicantWorkHistoryPoco>();
+            _logic = new ApplicantWorkHistoryLogic(repo);
+
+
         }
 
         [HttpGet]
         [Route("workhistory/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+       
+        [ProducesResponseType(200, Type = typeof(ApplicantWorkHistoryPoco))]
         public ActionResult GetApplicantWorkHistory(Guid id)
         {
             ApplicantWorkHistoryPoco poco = _logic.Get(id);
             if (poco == null)
             {
-                return null;
+                //404
+                return NotFound();
             }
-            return Ok(poco);
-
+            else
+            {
+                //200
+                return Ok(poco);
+            }
         }
+
+       
         [HttpGet]
         [Route("workhistory")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
+        
+        [ProducesResponseType(200, Type = typeof(List<ApplicantWorkHistoryPoco>))]
         public ActionResult GetAllApplicantWorkHistory()
         {
             List<ApplicantWorkHistoryPoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
+                //404
                 return NotFound();
             }
             else
-
             {
+                //200
                 return Ok(pocos);
             }
 
         }
+
+        
         [HttpPost]
         [Route("workhistory")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult PostApplicantWorkHistory([FromBody] ApplicantWorkHistoryPoco[] applicantWorkHistoryPoco)
+        public ActionResult PostApplicantWorkHistory([FromBody] ApplicantWorkHistoryPoco[] applicantWorkHistoryPocos)
         {
-            _logic.Add(applicantWorkHistoryPoco);
+            _logic.Add(applicantWorkHistoryPocos);
             return Ok();
-
         }
+
+        
         [HttpPut]
         [Route("workhistory")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutApplicantWorkHistory([FromBody] ApplicantWorkHistoryPoco[] applicantWorkHistoryPoco)
+        public ActionResult PutApplicantWorkHistory([FromBody] ApplicantWorkHistoryPoco[] applicantWorkHistoryPocos)
         {
-            _logic.Update(applicantWorkHistoryPoco);
+            _logic.Update(applicantWorkHistoryPocos);
             return Ok();
-
         }
+
+        
         [HttpDelete]
         [Route("workhistory")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult DeleteApplicantWorkHistory([FromBody] ApplicantWorkHistoryPoco[] applicantWorkHistoryPocos)
         {
             _logic.Delete(applicantWorkHistoryPocos);
             return Ok();
         }
+
+
+
 
     }
 }

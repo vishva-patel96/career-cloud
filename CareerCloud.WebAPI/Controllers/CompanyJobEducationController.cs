@@ -1,7 +1,8 @@
-﻿using CareerCloud.BusinessLogicLayer;
+﻿using System;
+using System.Collections.Generic;
+using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareerCloud.WebAPI.Controllers
@@ -14,77 +15,79 @@ namespace CareerCloud.WebAPI.Controllers
 
         public CompanyJobEducationController()
         {
-            EFGenericRepository<CompanyJobEducationPoco> companyJobEducationRepository = new EFGenericRepository<CompanyJobEducationPoco>();
-            _logic = new CompanyJobEducationLogic(companyJobEducationRepository);
+            var repo = new EFGenericRepository<CompanyJobEducationPoco>();
+            _logic = new CompanyJobEducationLogic(repo);
+
 
         }
 
+        
         [HttpGet]
         [Route("jobeducation/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        
+        [ProducesResponseType(200, Type = typeof(CompanyJobEducationPoco))]
         public ActionResult GetCompanyJobEducation(Guid id)
         {
             CompanyJobEducationPoco poco = _logic.Get(id);
             if (poco == null)
             {
-                return null;
+                //404
+                return NotFound();
             }
-            return Ok(poco);
-
+            else
+            {
+                //200
+                return Ok(poco);
+            }
         }
+
+        //Get All
         [HttpGet]
         [Route("jobeducation")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
+       
+        [ProducesResponseType(200, Type = typeof(List<CompanyJobEducationPoco>))]
         public ActionResult GetAllCompanyJobEducation()
         {
             List<CompanyJobEducationPoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
+                //404
                 return NotFound();
             }
             else
-
             {
+                //200
                 return Ok(pocos);
             }
 
         }
+
+        
         [HttpPost]
         [Route("jobeducation")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult PostCompanyJobEducation([FromBody] CompanyJobEducationPoco[] companyJobEducationPoco)
+        public ActionResult PostCompanyJobEducation([FromBody] CompanyJobEducationPoco[] companyJobEducationPocos)
         {
-            _logic.Add(companyJobEducationPoco);
+            _logic.Add(companyJobEducationPocos);
             return Ok();
-
         }
+
+        
         [HttpPut]
         [Route("jobeducation")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutCompanyJobEducation([FromBody] CompanyJobEducationPoco[] companyJobEducationPoco)
+        public ActionResult PutCompanyJobEducation([FromBody] CompanyJobEducationPoco[] companyJobEducationPocos)
         {
-            _logic.Update(companyJobEducationPoco);
+            _logic.Update(companyJobEducationPocos);
             return Ok();
-
         }
+
+        
         [HttpDelete]
         [Route("jobeducation")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult DeleteCompanyJobEducation([FromBody] CompanyJobEducationPoco[] companyJobEducationPocos)
         {
             _logic.Delete(companyJobEducationPocos);
             return Ok();
         }
+
     }
 }

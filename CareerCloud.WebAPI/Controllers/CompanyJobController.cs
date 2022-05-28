@@ -1,7 +1,8 @@
-﻿using CareerCloud.BusinessLogicLayer;
+﻿using System;
+using System.Collections.Generic;
+using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareerCloud.WebAPI.Controllers
@@ -14,78 +15,79 @@ namespace CareerCloud.WebAPI.Controllers
 
         public CompanyJobController()
         {
-            EFGenericRepository<CompanyJobPoco> companyJobRepository = new EFGenericRepository<CompanyJobPoco>();
-            _logic = new CompanyJobLogic(companyJobRepository);
+            var repo = new EFGenericRepository<CompanyJobPoco>();
+            _logic = new CompanyJobLogic(repo);
+
+
         }
 
+        //Get on ID
         [HttpGet]
         [Route("job/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        
+        [ProducesResponseType(200, Type = typeof(CompanyJobPoco))]
         public ActionResult GetCompanyJob(Guid id)
         {
             CompanyJobPoco poco = _logic.Get(id);
             if (poco == null)
             {
-                return null;
+                //404
+                return NotFound();
             }
-            return Ok(poco);
-
+            else
+            {
+                //200
+                return Ok(poco);
+            }
         }
+
+
         [HttpGet]
         [Route("job")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
+        
+        [ProducesResponseType(200, Type = typeof(List<CompanyJobPoco>))]
         public ActionResult GetAllCompanyJob()
         {
             List<CompanyJobPoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
+                //404
                 return NotFound();
             }
             else
-
             {
+                //200
                 return Ok(pocos);
             }
 
         }
+
+        
         [HttpPost]
         [Route("job")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult PostCompanyJob([FromBody] CompanyJobPoco[] companyJobPoco)
+        public ActionResult PostCompanyJob([FromBody] CompanyJobPoco[] companyJobPocos)
         {
-            _logic.Add(companyJobPoco);
+            _logic.Add(companyJobPocos);
             return Ok();
-
         }
+
+        
         [HttpPut]
         [Route("job")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutCompanyJob([FromBody] CompanyJobPoco[] companyJobPoco)
+        public ActionResult PutCompanyJob([FromBody] CompanyJobPoco[] companyJobPocos)
         {
-            _logic.Update(companyJobPoco);
+            _logic.Update(companyJobPocos);
             return Ok();
-
         }
+
+       
         [HttpDelete]
         [Route("job")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult DeleteCompanyJob([FromBody] CompanyJobPoco[] companyJobPocos)
         {
             _logic.Delete(companyJobPocos);
             return Ok();
         }
-
 
     }
 }

@@ -1,7 +1,8 @@
-﻿using CareerCloud.BusinessLogicLayer;
+﻿using System;
+using System.Collections.Generic;
+using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareerCloud.WebAPI.Controllers
@@ -14,76 +15,77 @@ namespace CareerCloud.WebAPI.Controllers
 
         public SecurityLoginsRoleController()
         {
-            EFGenericRepository<SecurityLoginsRolePoco> securityLoginsRoleRepository = new EFGenericRepository<SecurityLoginsRolePoco>();
-            _logic = new SecurityLoginsRoleLogic(securityLoginsRoleRepository);
+            var repo = new EFGenericRepository<SecurityLoginsRolePoco>();
+            _logic = new SecurityLoginsRoleLogic(repo);
         }
 
+       
         [HttpGet]
         [Route("loginsrole/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        
+        [ProducesResponseType(200, Type = typeof(SecurityLoginsRolePoco))]
         public ActionResult GetSecurityLoginsRole(Guid id)
         {
             SecurityLoginsRolePoco poco = _logic.Get(id);
             if (poco == null)
             {
-                return null;
+                //404
+                return NotFound();
             }
-            return Ok(poco);
-
+            else
+            {
+                //200
+                return Ok(poco);
+            }
         }
+
+        
         [HttpGet]
         [Route("loginsrole")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
+        
+        [ProducesResponseType(200, Type = typeof(List<SecurityLoginsRolePoco>))]
         public ActionResult GetAllSecurityLoginsRole()
         {
             List<SecurityLoginsRolePoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
+                //404
                 return NotFound();
             }
             else
-
             {
+                //200
                 return Ok(pocos);
             }
 
         }
+
+        
         [HttpPost]
         [Route("loginsrole")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult PostSecurityLoginRole([FromBody] SecurityLoginsRolePoco[] securityLoginsRolePoco)
+        public ActionResult PostSecurityLoginRole([FromBody] SecurityLoginsRolePoco[] securityLoginsRolePocos)
         {
-            _logic.Add(securityLoginsRolePoco);
+            _logic.Add(securityLoginsRolePocos);
             return Ok();
-
         }
+
+        
         [HttpPut]
         [Route("loginsrole")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutSecurityLoginsRole([FromBody] SecurityLoginsRolePoco[] securityLoginsRolePoco)
+        public ActionResult PutSecurityLoginRole([FromBody] SecurityLoginsRolePoco[] securityLoginsRolePocos)
         {
-            _logic.Update(securityLoginsRolePoco);
+            _logic.Update(securityLoginsRolePocos);
             return Ok();
-
         }
+
+        
         [HttpDelete]
         [Route("loginsrole")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult DeleteSecurityLoginRole([FromBody] SecurityLoginsRolePoco[] securityLoginsRolePocos)
         {
             _logic.Delete(securityLoginsRolePocos);
             return Ok();
         }
+
     }
 }

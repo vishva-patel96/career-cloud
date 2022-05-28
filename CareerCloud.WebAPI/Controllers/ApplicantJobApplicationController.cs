@@ -1,7 +1,8 @@
-﻿using CareerCloud.BusinessLogicLayer;
+﻿using System;
+using System.Collections.Generic;
+using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareerCloud.WebAPI.Controllers
@@ -14,77 +15,81 @@ namespace CareerCloud.WebAPI.Controllers
 
         public ApplicantJobApplicationController()
         {
-            EFGenericRepository<ApplicantJobApplicationPoco> applicantJobApplicationRepository = new EFGenericRepository<ApplicantJobApplicationPoco>();
-            _logic = new ApplicantJobApplicationLogic(applicantJobApplicationRepository);
+            var repo = new EFGenericRepository<ApplicantJobApplicationPoco>();
+            _logic = new ApplicantJobApplicationLogic(repo);
+
+
         }
 
+       
         [HttpGet]
         [Route("jobapplication/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        
+        [ProducesResponseType(200, Type = typeof(ApplicantJobApplicationPoco))]
         public ActionResult GetApplicantJobApplication(Guid id)
         {
             ApplicantJobApplicationPoco poco = _logic.Get(id);
             if (poco == null)
             {
-                return null;
+                
+                return NotFound();
             }
-            return Ok(poco);
-
+            else
+            {
+                
+                return Ok(poco);
+            }
         }
+
+  
         [HttpGet]
         [Route("jobapplication")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
+        
+        [ProducesResponseType(200, Type = typeof(List<ApplicantJobApplicationPoco>))]
         public ActionResult GetAllApplicantJobApplication()
         {
             List<ApplicantJobApplicationPoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
+               
                 return NotFound();
             }
             else
-
             {
+                //200
                 return Ok(pocos);
             }
 
         }
+
+        
         [HttpPost]
         [Route("jobapplication")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult PostApplicantJobApplication([FromBody] ApplicantJobApplicationPoco[] ApplicantJobApplicationPoco)
+        public ActionResult PostApplicantJobApplication([FromBody] ApplicantJobApplicationPoco[] applicantJobApplicationPocos)
         {
-            _logic.Add(ApplicantJobApplicationPoco);
+            _logic.Add(applicantJobApplicationPocos);
             return Ok();
-
         }
+
+        
         [HttpPut]
         [Route("jobapplication")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutApplicantJobApplication([FromBody] ApplicantJobApplicationPoco[] ApplicantJobApplicationPoco)
+        public ActionResult PutApplicantJobApplication([FromBody] ApplicantJobApplicationPoco[] applicantJobApplicationPocos)
         {
-            _logic.Update(ApplicantJobApplicationPoco);
+            _logic.Update(applicantJobApplicationPocos);
             return Ok();
-
         }
+
+        
         [HttpDelete]
         [Route("jobapplication")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult DeleteApplicantJobApplication([FromBody] ApplicantJobApplicationPoco[] ApplicantJobApplicationPocos)
+        public ActionResult DeleteApplicantJobApplication([FromBody] ApplicantJobApplicationPoco[] applicantJobApplicationPocos)
         {
-            _logic.Delete(ApplicantJobApplicationPocos);
+            _logic.Delete(applicantJobApplicationPocos);
             return Ok();
         }
+
+
 
 
     }

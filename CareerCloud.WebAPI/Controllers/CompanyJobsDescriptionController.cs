@@ -1,7 +1,8 @@
-﻿using CareerCloud.BusinessLogicLayer;
+﻿using System;
+using System.Collections.Generic;
+using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareerCloud.WebAPI.Controllers
@@ -14,72 +15,72 @@ namespace CareerCloud.WebAPI.Controllers
 
         public CompanyJobsDescriptionController()
         {
-            EFGenericRepository<CompanyJobDescriptionPoco> companyJobDescriptionRepository = new EFGenericRepository<CompanyJobDescriptionPoco>();
-            _logic = new CompanyJobDescriptionLogic(companyJobDescriptionRepository);
+            var repo = new EFGenericRepository<CompanyJobDescriptionPoco>();
+            _logic = new CompanyJobDescriptionLogic(repo);
         }
 
+        //Get on ID
         [HttpGet]
         [Route("jobsdescription/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        
+        [ProducesResponseType(200, Type = typeof(CompanyJobDescriptionPoco))]
         public ActionResult GetCompanyJobsDescription(Guid id)
         {
             CompanyJobDescriptionPoco poco = _logic.Get(id);
             if (poco == null)
             {
-                return null;
+                //404
+                return NotFound();
             }
-            return Ok(poco);
-
+            else
+            {
+                //200
+                return Ok(poco);
+            }
         }
+
+        //Get All
         [HttpGet]
         [Route("jobsdescription")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
-        public ActionResult GetAllCompanyJobDescription()
+        
+        [ProducesResponseType(200, Type = typeof(List<CompanyJobDescriptionPoco>))]
+        public ActionResult GetAllCompanyJobsDescription()
         {
             List<CompanyJobDescriptionPoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
+                //404
                 return NotFound();
             }
             else
-
             {
+                //200
                 return Ok(pocos);
             }
 
         }
+
+        
         [HttpPost]
         [Route("jobsdescription")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult PostCompanyJobsDescription([FromBody] CompanyJobDescriptionPoco[] companyJobDescriptionPoco)
+        public ActionResult PostCompanyJobsDescription([FromBody] CompanyJobDescriptionPoco[] companyJobDescriptionPocos)
         {
-            _logic.Add(companyJobDescriptionPoco);
+            _logic.Add(companyJobDescriptionPocos);
             return Ok();
-
         }
+
+        
         [HttpPut]
         [Route("jobsdescription")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutCompanyJobsDescription([FromBody] CompanyJobDescriptionPoco[] companyJobDescriptionPoco)
+        public ActionResult PutCompanyJobsDescription([FromBody] CompanyJobDescriptionPoco[] companyJobDescriptionPocos)
         {
-            _logic.Update(companyJobDescriptionPoco);
+            _logic.Update(companyJobDescriptionPocos);
             return Ok();
-
         }
+
+        
         [HttpDelete]
         [Route("jobsdescription")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult DeleteCompanyJobsDescription([FromBody] CompanyJobDescriptionPoco[] companyJobDescriptionPocos)
         {
             _logic.Delete(companyJobDescriptionPocos);

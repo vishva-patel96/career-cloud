@@ -1,7 +1,8 @@
-﻿using CareerCloud.BusinessLogicLayer;
+﻿using System;
+using System.Collections.Generic;
+using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareerCloud.WebAPI.Controllers
@@ -14,77 +15,81 @@ namespace CareerCloud.WebAPI.Controllers
 
         public ApplicantSkillController()
         {
-            EFGenericRepository<ApplicantSkillPoco> applicantSkillRepository = new EFGenericRepository<ApplicantSkillPoco>();
-            _logic = new ApplicantSkillLogic(applicantSkillRepository);
+            var repo = new EFGenericRepository<ApplicantSkillPoco>();
+            _logic = new ApplicantSkillLogic(repo);
+
 
         }
 
+        //Get on ID
         [HttpGet]
         [Route("skill/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+       
+        [ProducesResponseType(200, Type = typeof(ApplicantSkillPoco))]
         public ActionResult GetApplicantSkill(Guid id)
         {
             ApplicantSkillPoco poco = _logic.Get(id);
             if (poco == null)
             {
-                return null;
+                //404
+                return NotFound();
             }
-            return Ok(poco);
-
+            else
+            {
+                //200
+                return Ok(poco);
+            }
         }
+
+   
         [HttpGet]
         [Route("skill")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
+        
+        [ProducesResponseType(200, Type = typeof(List<ApplicantSkillPoco>))]
         public ActionResult GetAllApplicantSkill()
         {
             List<ApplicantSkillPoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
+                //404
                 return NotFound();
             }
             else
-
             {
+                //200
                 return Ok(pocos);
             }
 
         }
+
+        
         [HttpPost]
         [Route("skill")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult PostApplicantSkill([FromBody] ApplicantSkillPoco[] applicantSkillPoco)
+        public ActionResult PostApplicantSkill([FromBody] ApplicantSkillPoco[] applicantSkillPocos)
         {
-            _logic.Add(applicantSkillPoco);
+            _logic.Add(applicantSkillPocos);
             return Ok();
-
         }
-        [HttpPut]
+
+        
         [Route("skill")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutApplicantSkill([FromBody] ApplicantSkillPoco[] applicantSkillPoco)
+        public ActionResult PutApplicantSkill([FromBody] ApplicantSkillPoco[] applicantSkillPocos)
         {
-            _logic.Update(applicantSkillPoco);
+            _logic.Update(applicantSkillPocos);
             return Ok();
-
         }
+
+        
         [HttpDelete]
         [Route("skill")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult DeleteApplicantSkill([FromBody] ApplicantSkillPoco[] applicantSkillPocos)
         {
             _logic.Delete(applicantSkillPocos);
             return Ok();
         }
+
+
+
+
     }
 }

@@ -1,7 +1,8 @@
-﻿using CareerCloud.BusinessLogicLayer;
+﻿using System;
+using System.Collections.Generic;
+using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareerCloud.WebAPI.Controllers
@@ -14,73 +15,74 @@ namespace CareerCloud.WebAPI.Controllers
 
         public CompanyDescriptionController()
         {
-            EFGenericRepository<CompanyDescriptionPoco> companyDescriptionRepository = new EFGenericRepository<CompanyDescriptionPoco>();
-            _logic = new CompanyDescriptionLogic(companyDescriptionRepository);
+            var repo = new EFGenericRepository<CompanyDescriptionPoco>();
+            _logic = new CompanyDescriptionLogic(repo);
+
 
         }
 
+
         [HttpGet]
         [Route("description/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        
+        [ProducesResponseType(200, Type = typeof(CompanyDescriptionPoco))]
         public ActionResult GetCompanyDescription(Guid id)
         {
             CompanyDescriptionPoco poco = _logic.Get(id);
             if (poco == null)
             {
-                return null;
+                //404
+                return NotFound();
             }
-            return Ok(poco);
-
+            else
+            {
+                //200
+                return Ok(poco);
+            }
         }
+
+        
         [HttpGet]
         [Route("description")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
+        
+        [ProducesResponseType(200, Type = typeof(List<CompanyDescriptionPoco>))]
         public ActionResult GetAllCompanyDescription()
         {
             List<CompanyDescriptionPoco> pocos = _logic.GetAll();
             if (pocos == null)
             {
+                //404
                 return NotFound();
             }
             else
-
             {
+                //200
                 return Ok(pocos);
             }
 
         }
+
+        
         [HttpPost]
         [Route("description")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult PostCompanyDescription([FromBody] CompanyDescriptionPoco[] companyDescriptionPoco)
+        public ActionResult PostCompanyDescription([FromBody] CompanyDescriptionPoco[] companyDescriptionPocos)
         {
-            _logic.Add(companyDescriptionPoco);
+            _logic.Add(companyDescriptionPocos);
             return Ok();
-
         }
+
+        
         [HttpPut]
         [Route("description")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult PutCompanyDescription([FromBody] CompanyDescriptionPoco[] companyDescriptionPoco)
+        public ActionResult PutCompanyDescription([FromBody] CompanyDescriptionPoco[] companyDescriptionPocos)
         {
-            _logic.Update(companyDescriptionPoco);
+            _logic.Update(companyDescriptionPocos);
             return Ok();
-
         }
+
+        
         [HttpDelete]
-        [Route("description")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Route("workhistory")]
         public ActionResult DeleteCompanyDescription([FromBody] CompanyDescriptionPoco[] companyDescriptionPocos)
         {
             _logic.Delete(companyDescriptionPocos);
