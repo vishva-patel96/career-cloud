@@ -1,0 +1,5 @@
+obj\Debug\net6.0\Protos/ApplicantEducation.cs \
+obj\Debug\net6.0\Protos/ApplicantEducationGrpc.cs: C:/Users/1996v/.nuget/packages/grpc.tools/2.40.0/build/native/include/google/protobuf/timestamp.proto\
+ C:/Users/1996v/.nuget/packages/grpc.tools/2.40.0/build/native/include/google/protobuf/wrappers.proto\
+ C:/Users/1996v/.nuget/packages/grpc.tools/2.40.0/build/native/include/google/protobuf/empty.proto\
+ Protos/ApplicantEducation.proto
